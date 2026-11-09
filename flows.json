@@ -1,0 +1,390 @@
+[
+    {
+        "id": "18db66257ee088a8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1b74823b2b877f45",
+        "type": "ui-base",
+        "name": "G_1",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": true
+    },
+    {
+        "id": "122e22038a8c65eb",
+        "type": "ui-theme",
+        "name": "Tema",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "770d5ee1f7ddfaf6",
+        "type": "ui-page",
+        "name": "Inicio",
+        "ui": "1b74823b2b877f45",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "122e22038a8c65eb",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "tabs": [],
+        "order": -1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "fc56ca1cd86f4601",
+        "type": "ui-group",
+        "name": "Panel Principal",
+        "page": "770d5ee1f7ddfaf6",
+        "width": 6,
+        "height": 1,
+        "order": -1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "keepLoaded": false,
+        "tab": ""
+    },
+    {
+        "id": "d991ba07e2fd3aae",
+        "type": "function",
+        "z": "18db66257ee088a8",
+        "name": "SIMULADOR DE TEMPERATURA",
+        "func": "// 1. Calcula la conversión a Fahrenheit\nlet resultado = (msg.payload * 1.8) + 32;\n\n// 2. Redondea a 2 decimales y lo mantiene como formato numérico\nmsg.payload = Number(resultado.toFixed(2));\n\n// 3. Envía el mensaje modificado\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "70b484efa50b6b82",
+                "e7132cadce5dee5e",
+                "96454887acc23a21"
+            ]
+        ]
+    },
+    {
+        "id": "70b484efa50b6b82",
+        "type": "ui-gauge",
+        "z": "18db66257ee088a8",
+        "name": "visualizador ",
+        "group": "fc56ca1cd86f4601",
+        "order": 0,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "6",
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Temperatura Calculada",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "°C",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "60",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "80",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 650,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0bc2e0758816c89c",
+        "type": "ui-slider",
+        "z": "18db66257ee088a8",
+        "group": "fc56ca1cd86f4601",
+        "name": "Controlador",
+        "label": "Sensor",
+        "tooltip": "",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": 0,
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "d991ba07e2fd3aae"
+            ]
+        ]
+    },
+    {
+        "id": "e7132cadce5dee5e",
+        "type": "ui-chart",
+        "z": "18db66257ee088a8",
+        "group": "fc56ca1cd86f4601",
+        "name": "",
+        "label": "Historico de Temperatura",
+        "order": 9007199254740991,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 710,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "981e07f80022649f",
+        "type": "ui-button",
+        "z": "18db66257ee088a8",
+        "group": "fc56ca1cd86f4601",
+        "name": "",
+        "label": "Button",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "4.44",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "d991ba07e2fd3aae"
+            ]
+        ]
+    },
+    {
+        "id": "96454887acc23a21",
+        "type": "switch",
+        "z": "18db66257ee088a8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "85",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 240,
+        "wires": [
+            [
+                "953f078d507e6c32"
+            ]
+        ]
+    },
+    {
+        "id": "953f078d507e6c32",
+        "type": "change",
+        "z": "18db66257ee088a8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "¡ALERTA! TEMPERATURA CRITICA",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 300,
+        "wires": [
+            [
+                "8768ee9b06648667"
+            ]
+        ]
+    },
+    {
+        "id": "8768ee9b06648667",
+        "type": "ui-notification",
+        "z": "18db66257ee088a8",
+        "ui": "1b74823b2b877f45",
+        "position": "top right",
+        "colorDefault": false,
+        "color": "#f10404",
+        "displayTime": "5",
+        "showCountdown": true,
+        "outputs": 1,
+        "allowDismiss": true,
+        "dismissText": "Close",
+        "allowConfirm": false,
+        "confirmText": "Confirm",
+        "raw": false,
+        "className": "",
+        "name": "",
+        "x": 610,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    }
+]
